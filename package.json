@@ -10,16 +10,54 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:fluttercodeutil.helloWorld"
+		"onLanguage:dart",
+		"workspaceContains:**/pubspec.yaml"
 	],
+	"extensionDependencies": [
+		"Dart-Code.dart-code"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/HelloCore/FlutterCodeUtil.git"
+	},
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "fluttercodeutil.helloWorld",
-				"title": "Hello World"
+				"command": "fluttercodeutil.printCurrentDevice",
+				"title": "Print Current Device"
+			},
+			{
+				"command": "fluttercodeutil.getCurrentAppBinary",
+				"title": "Print App Binary suitable for selected device"
 			}
-		]
+		],
+		"configuration": {
+			"type": "object",
+			"title": "Flutter Code Util",
+			"properties": {
+				"fluttercodeutil.iphoneosAppPath": {
+					"type": "string",
+					"default": "",
+					"scope": "window"
+				},
+				"fluttercodeutil.iphonesimulatorAppPath": {
+					"type": "string",
+					"default": "",
+					"scope": "window"
+				},
+				"fluttercodeutil.androidAppPath": {
+					"type": "string",
+					"default": "",
+					"scope": "window"
+				},
+				"fluttercodeutil.hotRestartAfterLaunch": {
+					"type": "boolean",
+					"default": false,
+					"scope": "window"
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
