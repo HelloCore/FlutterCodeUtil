@@ -68,15 +68,17 @@ export function activate(context: vscode.ExtensionContext) {
     debugCommands.onDebugSessionVmServiceAvailable;
   context.subscriptions.push(
     onDebugSessionVmServiceAvailable((event) => {
-      console.log({ event });
       const config = vscode.workspace.getConfiguration("fluttercodeutil");
       const hotRestartAfterLaunch = config.get<boolean>(
         "hotRestartAfterLaunch"
       );
       if (hotRestartAfterLaunch == true) {
-        setTimeout(() => {
-          vscode.commands.executeCommand("flutter.hotRestart");
-        }, 2000);
+        if (event.session.configuration.flutterMode == "profile") {
+        } else {
+          setTimeout(() => {
+            vscode.commands.executeCommand("flutter.hotRestart");
+          }, 2000);
+        }
       }
     })
   );
