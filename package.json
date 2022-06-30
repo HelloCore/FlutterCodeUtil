@@ -2,7 +2,7 @@
 	"name": "fluttercodeutil",
 	"displayName": "FlutterCodeUtil",
 	"description": "",
-	"version": "0.0.2",
+	"version": "0.1.0",
 	"publisher": "HelloCore",
 	"engines": {
 		"vscode": "^1.53.0"
@@ -37,20 +37,40 @@
 			"type": "object",
 			"title": "Flutter Code Util",
 			"properties": {
-				"fluttercodeutil.iphoneosAppPath": {
+				"fluttercodeutil.appEnvironment": {
 					"type": "string",
 					"default": "",
 					"scope": "window"
 				},
-				"fluttercodeutil.iphonesimulatorAppPath": {
-					"type": "string",
-					"default": "",
-					"scope": "window"
-				},
-				"fluttercodeutil.androidAppPath": {
-					"type": "string",
-					"default": "",
-					"scope": "window"
+				"fluttercodeutil.appPath": {
+					"type": "object",
+					"scope": "window",
+					"description": "App Binary Path by Environment",
+					"patternProperties": {
+						".*": {
+							"type": "object",
+							"description": "Environment Name",
+							"required": ["iphoneosAppPath", "iphonesimulatorAppPath", "androidAppPath"],
+							"iphoneosAppPath": {
+								"type": "string",
+								"default": "",
+								"scope": "window",
+								"description": "iPhone App Binary Path [.app]"
+							},
+							"iphonesimulatorAppPath": {
+								"type": "string",
+								"default": "",
+								"scope": "window",
+								"description": "iPhone Simulator App Binary Path [.app]"
+							},
+							"androidAppPath": {
+								"type": "string",
+								"default": "",
+								"scope": "window",
+								"description": "Android App Binary Path [.apk]"
+							}		
+						}				
+					}
 				},
 				"fluttercodeutil.hotRestartAfterLaunch": {
 					"type": "boolean",

@@ -50,15 +50,23 @@ export function activate(context: vscode.ExtensionContext) {
         }
         if (debugProvider?.deviceManager?.currentDevice != null) {
           const config = vscode.workspace.getConfiguration("fluttercodeutil");
+          const appEnvironment = config.get<string>("appEnvironment")!;
+          const appPath = config.get<any>("appPath");
+          if(appPath[appEnvironment] == null) {
+            vscode.window.showErrorMessage("Please config fluttercodeutil.appEnvironment");
+            return null;
+          }
+          const currentEnvConfig = appPath[appEnvironment] ;
+
           const { currentDevice } = debugProvider?.deviceManager;
           if (currentDevice.platformType == "ios") {
             if (currentDevice.emulator) {
-              return config.get<string>("iphonesimulatorAppPath");
+              return currentEnvConfig["iphonesimulatorAppPath"];
             } else {
-              return config.get<string>("iphoneosAppPath");
+              return currentEnvConfig["iphoneosAppPath"];
             }
           }
-          return config.get<string>("androidAppPath");
+          return currentEnvConfig["androidAppPath"];
         }
       }
     )
