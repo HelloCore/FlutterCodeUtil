@@ -20,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
     return;
   }
 
-  const { debugCommands, debugProvider } = exports._privateApi;
+  const { debugCommands, debugProvider, debugSessions } = exports._privateApi;
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
@@ -32,6 +32,24 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.commands.executeCommand("flutter.selectDevice");
         vscode.window.showErrorMessage("Please select device first.");
         return null;
+      }
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "fluttercodeutil.isSelectedDeviceInDebugSession",
+      () => {
+        const currentDeviceId = debugProvider?.deviceManager?.currentDevice.id;
+
+        for (let i = 0; i < debugSessions.length; i++) {
+          const sessionDeviceID = debugSessions[i].session.configuration.deviceId;
+          if(sessionDeviceID == currentDeviceId){
+            return "TRUE";
+          }
+        }
+
+        return "FALSE";
       }
     )
   );

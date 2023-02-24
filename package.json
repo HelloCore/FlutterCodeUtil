@@ -2,7 +2,7 @@
 	"name": "fluttercodeutil",
 	"displayName": "FlutterCodeUtil",
 	"description": "",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"publisher": "HelloCore",
 	"engines": {
 		"vscode": "^1.53.0"
@@ -31,6 +31,10 @@
 			{
 				"command": "fluttercodeutil.getCurrentAppBinary",
 				"title": "Print App Binary suitable for selected device"
+			},
+			{
+				"command": "fluttercodeutil.isSelectedDeviceInDebugSession",
+				"title": "Print whether is selected device is still in debug session or not"
 			}
 		],
 		"configuration": {
